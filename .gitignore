@@ -1,0 +1,7 @@
+.env
+known_users.json
+__pycache__/
+*.pyc
+*.db
+*.sqlite
+*.sqlite3
