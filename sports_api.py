@@ -281,7 +281,9 @@ class SportsAPI:
         commence_time = datetime.fromisoformat(match['commence_time'].replace('Z', '+00:00'))
         
         # Récupération des meilleures cotes
-        best_odds = self._get_best_odds(match.get('bookmakers', []))
+        best_odds = self._get_best_odds(
+            match.get('bookmakers', []), home_team, away_team
+        )
         
         result = f"🆚 {home_team} vs {away_team}\n"
         result += f"🕒 {commence_time.strftime('%d/%m/%Y %H:%M')}\n"
@@ -291,33 +293,37 @@ class SportsAPI:
         
         return result
     
-    def _get_best_odds(self, bookmakers: List[Dict]) -> Optional[Dict]:
+    def _get_best_odds(
+        self, bookmakers: List[Dict], home_team: str, away_team: str
+    ) -> Optional[Dict]:
         """
         Trouve les meilleures cotes parmi tous les bookmakers
-        
+
         Args:
             bookmakers: Liste des bookmakers avec leurs cotes
-            
+            home_team: Nom de l'équipe à domicile
+            away_team: Nom de l'équipe à l'extérieur
+
         Returns:
             Dictionnaire avec les meilleures cotes ou None
         """
         if not bookmakers:
             return None
-        
-        best_odds = {'home': 0, 'draw': 0, 'away': 0}
-        
+
+        best_odds = {"home": 0, "draw": 0, "away": 0}
+
         for bookmaker in bookmakers:
-            for market in bookmaker.get('markets', []):
-                if market['key'] == 'h2h':
-                    for outcome in market['outcomes']:
-                        if outcome['name'] == bookmaker.get('home_team', ''):
-                            best_odds['home'] = max(best_odds['home'], outcome['price'])
-                        elif outcome['name'] == bookmaker.get('away_team', ''):
-                            best_odds['away'] = max(best_odds['away'], outcome['price'])
-                        elif outcome['name'] == 'Draw':
-                            best_odds['draw'] = max(best_odds['draw'], outcome['price'])
-        
-        return best_odds if best_odds['home'] > 0 else None
+            for market in bookmaker.get("markets", []):
+                if market["key"] == "h2h":
+                    for outcome in market["outcomes"]:
+                        if outcome["name"] == home_team:
+                            best_odds["home"] = max(best_odds["home"], outcome["price"])
+                        elif outcome["name"] == away_team:
+                            best_odds["away"] = max(best_odds["away"], outcome["price"])
+                        elif outcome["name"] == "Draw":
+                            best_odds["draw"] = max(best_odds["draw"], outcome["price"])
+
+        return best_odds if best_odds["home"] > 0 else None
 
 # Fonction utilitaire pour créer une instance
 def create_sports_api(api_key: str, demo_mode: bool = False) -> SportsAPI:
