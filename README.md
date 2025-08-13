@@ -61,7 +61,7 @@ python main.py --demo
 - `sports_api.py` - API des sports avec mode démo
 - `betting_analyzer.py` - Analyseur IA de paris
 - `config.py` - Configuration
-- `logo_betiq.jpg` - Logo BetIQ 2.5
+- `logo_betiq.png` - Logo BetIQ 2.5
 - `requirements.txt` - Dépendances Python
 
 **BetIQ 2.5** - L'intelligence artificielle au service de vos paris sportifs ! 🤖
