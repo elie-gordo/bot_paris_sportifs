@@ -14,11 +14,13 @@
 
 ## Configuration
 
-Créer un fichier `.env` avec :
+Créer un fichier `.env` (non versionné, voir `.gitignore`) avec :
 ```
 TELEGRAM_BOT_TOKEN=votre_token_telegram
 THE_ODDS_API_KEY=votre_cle_api_odds  # Optionnel pour le mode démo
 ```
+
+Ce fichier est local et n'est pas versionné.
 
 ## Démarrage
 
