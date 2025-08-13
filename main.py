@@ -24,6 +24,7 @@ from dotenv import load_dotenv
 
 from sports_api import create_sports_api
 from betting_analyzer import create_betting_analyzer
+import config
 
 # Configuration du logging
 logging.basicConfig(
@@ -51,11 +52,11 @@ class BetIQ25Bot:
             self.demo_mode = True
         
         self.sports_api = create_sports_api(self.odds_api_key or "demo", self.demo_mode)
-        self.betting_analyzer = create_betting_analyzer()
+        self.betting_analyzer = create_betting_analyzer(config.MIN_ODDS, config.MAX_ODDS)
         
         # Cache pour éviter trop de requêtes API
         self.cache = {}
-        self.cache_timeout = 300  # 5 minutes
+        self.cache_timeout = config.CACHE_TIMEOUT
         
         # Système de tracking des utilisateurs
         self.users_file = Path("known_users.json")

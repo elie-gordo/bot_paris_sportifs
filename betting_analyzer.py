@@ -7,13 +7,14 @@ import random
 from typing import Dict, List, Tuple, Optional
 from datetime import datetime
 import logging
+import config
 
 logger = logging.getLogger(__name__)
 
 class BettingAnalyzer:
     """Analyseur de paris sportifs et générateur de combinés"""
     
-    def __init__(self, min_odds: float = 1.5, max_odds: float = 5.0):
+    def __init__(self, min_odds: float = config.MIN_ODDS, max_odds: float = config.MAX_ODDS):
         """
         Initialise l'analyseur
         
@@ -148,7 +149,7 @@ class BettingAnalyzer:
         
         # Ajustement selon les cotes
         recommended_odds = analysis['recommended_odds']
-        if recommended_odds < 1.5:
+        if recommended_odds < config.MIN_ODDS:
             base_confidence += 20  # Bonus pour les favoris
         elif recommended_odds > 4.0:
             base_confidence -= 15  # Malus pour les outsiders
@@ -500,6 +501,6 @@ class BettingAnalyzer:
         return probs
 
 # Fonction utilitaire pour créer un analyseur
-def create_betting_analyzer(min_odds: float = 1.5, max_odds: float = 5.0) -> BettingAnalyzer:
+def create_betting_analyzer(min_odds: float = config.MIN_ODDS, max_odds: float = config.MAX_ODDS) -> BettingAnalyzer:
     """Crée une instance de BettingAnalyzer"""
     return BettingAnalyzer(min_odds, max_odds)

@@ -20,6 +20,15 @@ TELEGRAM_BOT_TOKEN=votre_token_telegram
 THE_ODDS_API_KEY=votre_cle_api_odds  # Optionnel pour le mode démo
 ```
 
+### Ajuster les paramètres d'analyse
+
+Modifiez les valeurs dans `config.py` pour personnaliser le comportement du bot :
+
+- `MIN_ODDS` et `MAX_ODDS` : limites des cotes étudiées.
+- `CACHE_TIMEOUT` : durée en secondes pendant laquelle les résultats API sont mis en cache.
+
+Ces paramètres permettent d'affiner la stratégie selon vos préférences.
+
 ## Démarrage
 
 ### Mode normal (avec API réelle) :
